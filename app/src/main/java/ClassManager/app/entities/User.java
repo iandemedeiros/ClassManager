@@ -1,12 +1,15 @@
 package ClassManager.app.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode
 @Table(name = "tb_user")
 public class User {
@@ -14,15 +17,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Username is required")
+    private String username;
 
-    @Column(nullable = false, length = 100)
-    private String name;
-
-    @Column(nullable = false, length = 100)
-    private String address;
-
-    @Column(nullable = false, length = 100)
+    @NotBlank(message = "Password is required")
     private String password;
-
 
 }

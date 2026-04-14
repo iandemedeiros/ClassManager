@@ -1,42 +1,34 @@
 package ClassManager.app.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
-
 
 @Entity
 @Getter
 @Setter
 @EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "tb_student")
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 100)
+    @NotBlank(message = "Name is required")
     private String name;
 
-    @Column(nullable = false, length = 20)
-    private String phone;
+    private Integer ticket = 0;
 
-    @Column(length = 150)
-    private String email;
+    @Min(value = 0, message = "Default price must be a non-negative value")
+    private Double defaultPrice = (double) 100;
 
-    private Double defaultPrice;
-
-    private Integer defaultDuration; // minutes
-
-    @Column(nullable = false)
-    private String status; // ACTIVE / INACTIVE
-
-    @Column(length = 500)
-    private String notes;
+    private Boolean status = true; // ACTIVE / INACTIVE
 
     // Relacionamento com User
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 }
-
-
